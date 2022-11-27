@@ -1,0 +1,90 @@
+panel1.setBounds(10, 119, 996, 464);
+
+
+
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        
+            JFileChooser dialog = new JFileChooser();
+            dialog.setSelectedFile(new File(txt_firstname.getText()+" "+txt_surname.getText()+"-CV"+".pdf"));
+            int dialogResult = dialog.showSaveDialog(null);
+            if (dialogResult==JFileChooser.APPROVE_OPTION){
+            String filePath = dialog.getSelectedFile().getPath();
+           
+        try {
+            // TODO add your handling code here:
+          Document myDocument = new Document();
+          PdfWriter myWriter = PdfWriter.getInstance(myDocument, new FileOutputStream(filePath));
+         
+          myDocument.open();
+          
+          Image image = Image.getInstance(person_image);
+          image.setAbsolutePosition(473f, 750f);
+          image.scaleAbsolute(80f,70f);
+                  
+         
+          PdfPTable table = new PdfPTable(2);
+         // table.getDefaultCell().setBorder(0);
+          myDocument.add(image);
+          myDocument.add(new Paragraph(txt_firstname.getText()+"  "+txt_surname.getText(),FontFactory.getFont(FontFactory.TIMES_BOLD,32,Font.BOLD,BaseColor.DARK_GRAY ))); 
+          myDocument.add(new Paragraph("",FontFactory.getFont(FontFactory.TIMES_BOLD,9,Font.PLAIN,BaseColor.DARK_GRAY))); 
+          myDocument.add(new Paragraph("",FontFactory.getFont(FontFactory.TIMES_BOLD,9,Font.PLAIN,BaseColor.DARK_GRAY)));
+          myDocument.add(new Paragraph("----------------------------------------------------------------------------------------------------------------------------------"));
+          myDocument.add(new Paragraph("CONTACT DETAILS",FontFactory.getFont(FontFactory.TIMES_BOLD,9,Font.BOLD,BaseColor.DARK_GRAY ))); 
+          myDocument.add(new Paragraph(txt_email.getText(),FontFactory.getFont(FontFactory.TIMES_BOLD,7,Font.PLAIN,BaseColor.DARK_GRAY  )));
+          myDocument.add(new Paragraph(txt_tel.getText(),FontFactory.getFont(FontFactory.TIMES_BOLD,7,Font.PLAIN ,BaseColor.DARK_GRAY )));
+          myDocument.add(new Paragraph(txt_add1.getText() +", "+txt_add2.getText()+", "+txt_pc.getText(),FontFactory.getFont(FontFactory.TIMES_BOLD,7,Font.PLAIN,BaseColor.DARK_GRAY  )));
+          myDocument.add(new Paragraph(txt_nationality.getText(),FontFactory.getFont(FontFactory.TIMES_BOLD,7,Font.PLAIN,BaseColor.DARK_GRAY  )));
+          myDocument.add(new Paragraph(txt_dob.getText(),FontFactory.getFont(FontFactory.TIMES_BOLD,7,Font.PLAIN,BaseColor.DARK_GRAY  )));  
+          myDocument.add(new Paragraph("----------------------------------------------------------------------------------------------------------------------------------"));
+          myDocument.add(new Paragraph("SKILLS",FontFactory.getFont(FontFactory.TIMES_BOLD,9,Font.BOLD,BaseColor.DARK_GRAY  )));
+          table.setHeaderRows(1);
+          /*PdfPCell cell;
+          cell = new PdfPCell(new Phrase("The below are my skills"));
+          cell.setColspan(1);
+          table.addCell(cell);
+          cell = new PdfPCell(new Phrase("SKILLS"));
+          cell.setRowspan(1);
+          table.addCell(cell);*/
+          table.addCell(txt_skill1.getText());
+          table.addCell(txt_skill2.getText());
+          table.addCell(txt_skill3.getText());
+          table.addCell(txt_skill4.getText());
+          myDocument.add(table);
+          myDocument.add(new Paragraph("----------------------------------------------------------------------------------------------------------------------------------"));
+          myDocument.add(new Paragraph("QUALIFICATIONS",FontFactory.getFont(FontFactory.TIMES_BOLD,9,Font.BOLD,BaseColor.DARK_GRAY  )));
+          myDocument.add(new Paragraph(txt_university.getText(),FontFactory.getFont(FontFactory.TIMES_BOLD,7,Font.PLAIN,BaseColor.DARK_GRAY  )));   
+          myDocument.add(new Paragraph(txt_qual1.getText(),FontFactory.getFont(FontFactory.TIMES_BOLD,7,Font.PLAIN,BaseColor.DARK_GRAY  )));   
+          myDocument.add(new Paragraph(txt_qual2.getText(),FontFactory.getFont(FontFactory.TIMES_BOLD,7,Font.PLAIN,BaseColor.DARK_GRAY  )));   
+          myDocument.add(new Paragraph("----------------------------------------------------------------------------------------------------------------------------------"));
+          myDocument.add(new Paragraph("WORK EXPERIENCE",FontFactory.getFont(FontFactory.TIMES_BOLD,10,Font.BOLD,BaseColor.DARK_GRAY  )));
+          myDocument.add(new Paragraph(txt_company1.getText()+System.lineSeparator()+txt_workone.getText(),FontFactory.getFont(FontFactory.TIMES_BOLD,7,Font.PLAIN,BaseColor.DARK_GRAY)));
+          myDocument.add(new Paragraph(txt_company2.getText()+System.lineSeparator()+txt_worktwo.getText(),FontFactory.getFont(FontFactory.TIMES_BOLD,7,Font.PLAIN,BaseColor.DARK_GRAY)));
+          myDocument.add(new Paragraph(txt_company3.getText()+System.lineSeparator()+txt_workthree.getText(),FontFactory.getFont(FontFactory.TIMES_BOLD,7,Font.PLAIN,BaseColor.DARK_GRAY)));
+          myDocument.add(new Paragraph("----------------------------------------------------------------------------------------------------------------------------------"));
+          myDocument.add(new Paragraph("REFERENCES",FontFactory.getFont(FontFactory.TIMES_BOLD,9,Font.BOLD,BaseColor.DARK_GRAY  )));
+          myDocument.add(new Paragraph("Available upon request",FontFactory.getFont(FontFactory.TIMES_BOLD,6,Font.PLAIN,BaseColor.DARK_GRAY  )));
+
+
+          myDocument.close();  
+          JOptionPane.showMessageDialog(null,"CV was successfully generated");
+            
+     }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null,e);
+     }
+     finally {
+            
+            try{
+                rs.close();
+                pst.close();
+                
+            }
+            catch(Exception e){
+           
+         
+            }
+     }
+   }
+    }
